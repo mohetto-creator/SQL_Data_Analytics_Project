@@ -36,11 +36,6 @@ erDiagram
 ```
 
 ---
-
-## 🧭 Project Roadmap
-
-![Project Roadmap](docs/Project%20Roadmap.png)
-
 ### Exploratory Data Analysis (`scripts/01` – `06`)
 | # | Script | What it does |
 |---|---|---|
