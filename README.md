@@ -133,10 +133,6 @@ sql-data-analytics-project/
 
 ---
 
-## 🙏 Acknowledgements
-
-Built while following the **SQL Data Analytics Project** tutorial by [Data With Baraa](https://www.youtube.com/@datawithbaraa) ([video](https://youtu.be/2jGhQpbzHes)). Dataset and reference scripts © Baraa Khatib Salkini, used under the [MIT License](LICENSE).
-
 ## 👤 About Me
 
 **Mohit** – aspiring Data Analyst passionate about turning data into decisions.
