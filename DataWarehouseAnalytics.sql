@@ -9,6 +9,7 @@ SELECT
 *
 FROM dbo.fact_sales
 
+-- sales performance by month    
 SELECT
 DATETRUNC(MONTH,order_date) AS order_date,
 SUM(sales_amount) AS Total_sales,
@@ -19,7 +20,7 @@ WHERE order_date IS NOT NULL
 GROUP BY DATETRUNC(MONTH,order_date)
 ORDER BY DATETRUNC(MONTH,order_date)
 
--- same thing by year
+-- sales performance by year
 SELECT
 YEAR(order_date) AS order_year,
 SUM(sales_amount) AS Total_sales,
@@ -32,8 +33,7 @@ ORDER BY YEAR(order_date)
 
 
 -- Cumulative Analysis
--- calculate the total sales per month 
--- and running total sales and moving average sales over time
+-- total sales per month, running total sales and moving average sales over time
 
 SELECT
     order_date,
@@ -52,8 +52,10 @@ FROM (
 ) SQ
 ORDER BY order_date;
 
--- Analyze the yearly performance of products by comparing each product's sales 
--- To both  it's Average sales performance and the previous year perfomance
+
+-- Performance Analysis
+-- Analyse the yearly performance of products by comparing each product's sales 
+-- To both  its average sales performance and the previous year's performance
 WITH yearly_performance AS(
 SELECT 
     YEAR(F.order_date) AS order_date,
@@ -87,9 +89,9 @@ SELECT
 FROM yearly_performance
 ORDER BY product_name, order_date;
 
-
+-- PART-TO-WHOLE (PROPORTIONAL) ANALYSIS
 -- Which categories contribute the most to overall sales
--- (used OVER() empty here, with ORDER BY it was giving running total)
+-- (used OVER() empty here; with ORDER BY it was giving a running total)
 WITH category_sale 
 AS(SELECT  
     category,
@@ -132,9 +134,9 @@ GROUP BY cost_range
 ORDER BY total_products DESC;
 
 -- group customers into 3 segments based on spending
--- VIP : atleast 12 months history and spending more than 5000
--- Regular : atleast 12 months history but spending 5000 or less
--- New : lifespan less than 12 months
+-- VIP: at least 12 months history and spending more than 5000
+-- Regular: at least 12 months history but spending 5000 or less
+-- New: lifespan less than 12 months
 -- and find total customers in each group
 WITH customer_spending AS(
 SELECT 
@@ -169,10 +171,10 @@ GO
 
 /*
 Customer Report
-- basic details : name, age, transaction details
+- basic details: name, age, transaction details
 - segments : VIP / Regular / New and age groups
-- metrics : total orders, total sales, total quantity, total products, lifespan
-- KPIs : recency, avg order value, avg monthly spend
+- metrics: total orders, total sales, total quantity, total products, lifespan
+- KPIs: recency, avg order value, avg monthly spend
 */
 IF OBJECT_ID('dbo.report_customers', 'V') IS NOT NULL
     DROP VIEW dbo.report_customers;
@@ -261,10 +263,10 @@ GO
 
 /*
 Product Report
-- basic details : product name, category, subcategory, cost
-- segments : High-Performer / Mid-Range / Low-Performer by revenue
-- metrics : total orders, total sales, total quantity, total customers, lifespan
-- KPIs : recency, avg order revenue, avg monthly revenue
+- basic details: product name, category, subcategory, cost
+- segments: High-Performer / Mid-Range / Low-Performer by revenue
+- metrics: total orders, total sales, total quantity, total customers, lifespan
+- KPIs: recency, avg order revenue, avg monthly revenue
 */
 IF OBJECT_ID('dbo.report_products', 'V') IS NOT NULL
     DROP VIEW dbo.report_products;
